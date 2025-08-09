@@ -1,0 +1,6 @@
+@import "tailwindcss";
+
+* {
+  outline: none;
+  user-select: none;
+}
