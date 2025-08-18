@@ -5,6 +5,13 @@ description = "A Tauri App"
 authors = ["you"]
 edition = "2021"
 
+[profile.release]
+opt-level = "z"
+lto = true 
+codegen-units = 1
+panic = "abort"
+strip = true
+
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [lib]
@@ -34,7 +41,11 @@ futures-util = "0.3"
 axum = "0.7"
 hyper = "0.14"
 tower-http = { version = "0.5", features = ["fs"] }
+tauri-plugin-dialog = "2"
+tauri-plugin-clipboard = { git = "https://github.com/CrossCopy/tauri-plugin-clipboard", branch = "v2" }
+tauri-plugin-store = "2"
 
 [target.'cfg(not(any(target_os = "android", target_os = "ios")))'.dependencies]
+tauri-plugin-autostart = "2"
 tauri-plugin-positioner = { version = "2.0.0", features = ["tray-icon"] }
 

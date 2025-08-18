@@ -9,13 +9,13 @@
     "beforeBuildCommand": "bun run build",
     "frontendDist": "../dist"
   },
-  
+
   "app": {
     "windows": [
       {
         "title": "uply",
         "width": 280,
-        "height": 250,
+        "height": 305,
         "fullscreen": false,
         "resizable": false,
         "visible": false,
@@ -26,9 +26,9 @@
         "decorations": false,
         "minimizable": false,
         "theme": "Dark",
-        "skipTaskbar": true, 
+        "skipTaskbar": true,
         "focus": false,
-        "dragDropEnabled": false
+        "dragDropEnabled": true
       }
     ],
     "security": {
@@ -37,7 +37,23 @@
   },
   "bundle": {
     "active": true,
+    "windows": {
+      "allowDowngrades": true,
+      "certificateThumbprint": null,
+      "digestAlgorithm": null,
+      "nsis": null,
+      "signCommand": null,
+      "timestampUrl": null,
+      "tsp": false,
+      "webviewInstallMode": {
+        "silent": true,
+        "type": "downloadBootstrapper"
+      }
+    },
     "targets": "all",
+    "category": "Utility",
+    "copyright": "medeiros",
+    "shortDescription": "App developed to upload temporary files to Cloudflare's R2",
     "icon": [
       "icons/32x32.png",
       "icons/128x128.png",
