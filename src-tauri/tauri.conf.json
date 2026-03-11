@@ -24,6 +24,7 @@
         "alwaysOnTop": true,
         "closable": false,
         "decorations": false,
+        "transparent": true,
         "minimizable": false,
         "theme": "Dark",
         "skipTaskbar": true,

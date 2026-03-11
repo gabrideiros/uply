@@ -48,25 +48,27 @@ export function Settings({ onBack }: SettingsPageProps) {
   };
 
   return (
-    <div className="bg-gray-950 text-white p-3 w-[280px] h-[305px] flex flex-col">
-      <div className="p-3 border-b border-gray-800 flex justify-between items-center">
-        <h2 className="text-sm font-medium text-gray-300">
+    <div className="bg-zinc-900/90 [backdrop-filter:blur(40px)] text-white p-3 w-[280px] h-[305px] flex flex-col rounded-none border border-white/8">
+      <div className="px-1 pb-2 flex justify-between items-center">
+        <h2 className="text-sm font-medium text-white/80">
           Cloudflare R2 Settings
         </h2>
-        <button onClick={onBack} className="text-gray-500 hover:text-gray-300">
+        <button onClick={onBack} className="text-white/30 hover:text-white/70 transition-colors">
           <X className="w-4 h-4" />
         </button>
       </div>
 
-      <div className="overflow-y-auto flex-1 p-3 scroll-clean">
+      <div className="h-px bg-white/6 mx-1 mb-2" />
+
+      <div className="overflow-y-auto flex-1 px-1 scroll-clean">
         {isLoading ? (
           <div className="flex justify-center py-4">
-            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-gray-300"></div>
+            <div className="animate-spin rounded-full h-4 w-4 border-b border-white/30"></div>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="space-y-3">
+          <form onSubmit={handleSubmit} className="space-y-2.5">
             <div>
-              <label className="block text-xs text-gray-400 mb-1">
+              <label className="block text-xs text-white/40 mb-1">
                 Account ID
               </label>
               <input
@@ -74,13 +76,13 @@ export function Settings({ onBack }: SettingsPageProps) {
                 name="account_id"
                 value={credentials.account_id}
                 onChange={handleInputChange}
-                className="w-full px-2 py-1.5 text-xs bg-gray-900 border border-gray-800 rounded focus:outline-none focus:ring-1 focus:ring-blue-500 text-gray-200"
+                className="w-full px-2 py-1.5 text-xs bg-white/6 border border-white/8 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-400/50 text-white/80 placeholder:text-white/20"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-xs text-gray-400 mb-1">
+              <label className="block text-xs text-white/40 mb-1">
                 Access Key ID
               </label>
               <input
@@ -88,13 +90,13 @@ export function Settings({ onBack }: SettingsPageProps) {
                 name="access_key_id"
                 value={credentials.access_key_id}
                 onChange={handleInputChange}
-                className="w-full px-2 py-1.5 text-xs bg-gray-900 border border-gray-800 rounded focus:outline-none focus:ring-1 focus:ring-blue-500 text-gray-200"
+                className="w-full px-2 py-1.5 text-xs bg-white/6 border border-white/8 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-400/50 text-white/80 placeholder:text-white/20"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-xs text-gray-400 mb-1">
+              <label className="block text-xs text-white/40 mb-1">
                 Access Key Secret
               </label>
               <input
@@ -102,13 +104,13 @@ export function Settings({ onBack }: SettingsPageProps) {
                 name="access_key_secret"
                 value={credentials.access_key_secret}
                 onChange={handleInputChange}
-                className="w-full px-2 py-1.5 text-xs bg-gray-900 border border-gray-800 rounded focus:outline-none focus:ring-1 focus:ring-blue-500 text-gray-200"
+                className="w-full px-2 py-1.5 text-xs bg-white/6 border border-white/8 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-400/50 text-white/80 placeholder:text-white/20"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-xs text-gray-400 mb-1">
+              <label className="block text-xs text-white/40 mb-1">
                 Bucket Name
               </label>
               <input
@@ -116,13 +118,13 @@ export function Settings({ onBack }: SettingsPageProps) {
                 name="bucket_name"
                 value={credentials.bucket_name}
                 onChange={handleInputChange}
-                className="w-full px-2 py-1.5 text-xs bg-gray-900 border border-gray-800 rounded focus:outline-none focus:ring-1 focus:ring-blue-500 text-gray-200"
+                className="w-full px-2 py-1.5 text-xs bg-white/6 border border-white/8 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-400/50 text-white/80 placeholder:text-white/20"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-xs text-gray-400 mb-1">
+              <label className="block text-xs text-white/40 mb-1">
                 Public URL
               </label>
               <input
@@ -130,7 +132,7 @@ export function Settings({ onBack }: SettingsPageProps) {
                 name="public_url"
                 value={credentials.public_url}
                 onChange={handleInputChange}
-                className="w-full px-2 py-1.5 text-xs bg-gray-900 border border-gray-800 rounded focus:outline-none focus:ring-1 focus:ring-blue-500 text-gray-200"
+                className="w-full px-2 py-1.5 text-xs bg-white/6 border border-white/8 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-400/50 text-white/80 placeholder:text-white/20"
                 required
               />
             </div>
@@ -138,18 +140,20 @@ export function Settings({ onBack }: SettingsPageProps) {
         )}
       </div>
 
-      <div className="flex justify-end space-x-2">
+      <div className="h-px bg-white/6 mx-1 my-2" />
+
+      <div className="flex justify-end gap-2 px-1">
         <button
           type="button"
           onClick={onBack}
-          className="px-3 py-1 text-xs border border-gray-800 rounded text-gray-300 hover:bg-gray-800/50"
+          className="px-3 py-1 text-xs border border-white/10 rounded-lg text-white/60 hover:bg-white/6 transition-colors"
         >
           Cancel
         </button>
         <button
           type="submit"
           onClick={handleSubmit}
-          className="px-3 py-1 text-xs border border-transparent rounded text-white bg-blue-600 hover:bg-blue-700 disabled:opacity-50"
+          className="px-3 py-1 text-xs rounded-lg text-white bg-blue-500/80 hover:bg-blue-500 transition-colors"
         >
           Save
         </button>

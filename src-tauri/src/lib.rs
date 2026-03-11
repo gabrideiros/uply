@@ -3,6 +3,7 @@ use tauri::{
     tray::{MouseButton, TrayIconBuilder, TrayIconEvent},
     Emitter, Manager,
 };
+use tauri_plugin_global_shortcut::{ShortcutState};
 use tauri_plugin_positioner::{Position, WindowExt};
 
 use std::sync::{Arc, Mutex};
@@ -115,6 +116,25 @@ pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_autostart::init(Default::default(), None))
         .plugin(tauri_plugin_store::Builder::new().build())
+        .plugin(
+            tauri_plugin_global_shortcut::Builder::new()
+                .with_shortcut("alt+u")
+                .expect("Failed to parse shortcut")
+                .with_handler(|app, _shortcut, event| {
+                    if event.state() == ShortcutState::Pressed {
+                        if let Some(window) = app.get_webview_window("main") {
+                            if window.is_visible().unwrap_or(false) {
+                                let _ = window.hide();
+                            } else {
+                                let _ = window.move_window(Position::TrayCenter);
+                                let _ = window.show();
+                                let _ = window.set_focus();
+                            }
+                        }
+                    }
+                })
+                .build(),
+        )
         .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_fs::init())
         .plugin(tauri_plugin_positioner::init())

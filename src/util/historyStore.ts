@@ -5,7 +5,7 @@ let store: Awaited<ReturnType<typeof load>> | null = null;
 
 async function initStore() {
   if (!store) {
-    store = await load("history.json", { autoSave: false });
+    store = await load("history.json", { autoSave: false, defaults: {} });
   }
   return store;
 }

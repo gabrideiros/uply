@@ -114,6 +114,7 @@ export function Home({
   useHotkeys("mod+o", () => openDialog(), { preventDefault: true });
   useHotkeys("mod+v", handlePasteFromClipboard, { preventDefault: true });
   useHotkeys("mod+h", onHistory, { preventDefault: true });
+  useHotkeys("mod+s", onSettings, { preventDefault: true });
 
   async function uploadFileToR2(
     filePath: string,
@@ -214,25 +215,25 @@ export function Home({
     uploadQueue.length > 0 ? "uploading" : isDragging ? "dragging" : "idle";
 
   return (
-    <div className="bg-gray-950 text-white p-3 w-[280px] h-[305px] flex flex-col">
+    <div className="bg-zinc-900/90 [backdrop-filter:blur(40px)] text-white p-3 w-[280px] h-[305px] flex flex-col rounded-none border border-white/[0.08]">
       <div
         className={`
-              flex-1 border-2 border-dashed rounded-lg p-4 cursor-pointer mb-2
+              flex-1 border border-dashed rounded-xl p-4 cursor-pointer mb-2
               ${
                 uploadStatus === "dragging"
-                  ? "border-blue-400 bg-blue-400/5 animate-pulse"
+                  ? "border-blue-400/50 bg-blue-400/5 animate-pulse"
                   : uploadStatus === "uploading"
-                  ? "border-violet-400/50"
-                  : "border-gray-600 hover:border-gray-500"
+                  ? "border-white/10"
+                  : "border-white/10 hover:border-white/20"
               }
-              flex items-center justify-center
+              flex items-center justify-center transition-colors duration-200
             `}
         onClick={openDialog}
       >
         {uploadStatus === "dragging" && (
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 text-white/60">
             <Upload className="w-4 h-4" />
-            <span>Drop to upload</span>
+            <span className="text-sm">Drop to upload</span>
           </div>
         )}
 
@@ -241,10 +242,10 @@ export function Home({
             {uploadQueue.slice(0, 2).map((item) => (
               <div key={item.id} className="w-full">
                 <div className="flex items-center justify-between text-xs mb-1">
-                  <span className="truncate max-w-[120px]">
+                  <span className="truncate max-w-[120px] text-white/80">
                     {truncateFileName(item.fileName, 15)}
                   </span>
-                  <span className="text-gray-400 text-xs">
+                  <span className="text-white/40 text-xs">
                     {item.progress}%
                   </span>
                   <button
@@ -252,21 +253,21 @@ export function Home({
                       e.stopPropagation();
                       handleCancelUpload(item.id);
                     }}
-                    className="text-red-300 hover:text-red-400"
+                    className="text-white/40 hover:text-white/70"
                   >
                     <X className="w-3 h-3" />
                   </button>
                 </div>
-                <div className="h-1.5 bg-gray-700 rounded-full overflow-hidden">
+                <div className="h-1 bg-white/10 rounded-full overflow-hidden">
                   <div
-                    className="h-full bg-violet-400 transition-all duration-300"
+                    className="h-full bg-blue-400 transition-all duration-300"
                     style={{ width: `${item.progress}%` }}
                   />
                 </div>
               </div>
             ))}
             {uploadQueue.length > 2 && (
-              <span className="text-xs text-gray-400">
+              <span className="text-xs text-white/40">
                 +{uploadQueue.length - 2} more files...
               </span>
             )}
@@ -274,61 +275,61 @@ export function Home({
         )}
 
         {uploadStatus === "idle" && (
-          <div className="flex flex-col items-center gap-1 text-gray-400">
+          <div className="flex flex-col items-center gap-1 text-white/30">
             <Upload className="w-4 h-4" />
             <span className="text-sm">Drag files here</span>
           </div>
         )}
       </div>
 
-      <div className="flex justify-center my-1">
-        <div className="border-t border-gray-700 w-3/4" />
-      </div>
+      <div className="h-px bg-white/[0.06] mx-1 my-1" />
 
-      <div className="space-y-1">
+      <div className="space-y-0.5">
         <button
           onClick={openDialog}
-          className="w-full flex items-center gap-2 px-3 py-2 hover:bg-gray-800/30 rounded-lg text-left transition-colors duration-200 text-sm"
+          className="w-full flex items-center gap-2 px-3 py-1.5 hover:bg-white/[0.06] rounded-lg text-left transition-colors duration-150 text-sm"
         >
-          <FileInput className="w-4 h-4 text-gray-400" />
-          <span className="text-gray-300">Select file</span>
-          <span className="ml-auto text-xs text-gray-500">CTRL + O</span>
+          <FileInput className="w-4 h-4 text-white/40" />
+          <span className="text-white/80">Select file</span>
+          <span className="ml-auto text-xs text-white/25">⌘ O</span>
         </button>
 
         <button
           onClick={handlePasteFromClipboard}
-          className="w-full flex items-center gap-2 px-3 py-2 hover:bg-gray-800/30 rounded-lg text-left transition-colors duration-200 text-sm"
+          className="w-full flex items-center gap-2 px-3 py-1.5 hover:bg-white/[0.06] rounded-lg text-left transition-colors duration-150 text-sm"
         >
-          <ClipboardPaste className="w-4 h-4 text-gray-400" />
-          <span className="text-gray-300">Paste from clipboard</span>
-          <span className="ml-auto text-xs text-gray-500">CTRL + V</span>
+          <ClipboardPaste className="w-4 h-4 text-white/40" />
+          <span className="text-white/80">Paste from clipboard</span>
+          <span className="ml-auto text-xs text-white/25">⌘ V</span>
         </button>
         <button
           onClick={onHistory}
-          className="w-full flex items-center gap-2 px-3 py-2 hover:bg-gray-800/30 rounded-lg text-left transition-colors duration-200 text-sm"
+          className="w-full flex items-center gap-2 px-3 py-1.5 hover:bg-white/[0.06] rounded-lg text-left transition-colors duration-150 text-sm"
         >
-          <History className="w-4 h-4 text-gray-400" />
-          <span className="text-gray-300">Recent uploads</span>
-          <span className="ml-auto text-xs text-gray-500">CTRL + H</span>
+          <History className="w-4 h-4 text-white/40" />
+          <span className="text-white/80">Recent uploads</span>
+          <span className="ml-auto text-xs text-white/25">⌘ H</span>
         </button>
       </div>
-      <div className="flex justify-center my-1">
-        <div className="border-t border-gray-700 w-3/4" />
+
+      <div className="h-px bg-white/[0.06] mx-1 my-1" />
+
+      <div className="space-y-0.5">
+        <button
+          onClick={onSettings}
+          className="w-full flex items-center gap-2 px-3 py-1.5 hover:bg-white/[0.06] rounded-lg text-left transition-colors duration-150 text-sm"
+        >
+          <span className="text-white/80">Settings</span>
+          <span className="ml-auto text-xs text-white/25">⌘ ,</span>
+        </button>
+        <button
+          onClick={onQuit}
+          className="w-full flex items-center gap-2 px-3 py-1.5 hover:bg-white/[0.06] rounded-lg text-left transition-colors duration-150 text-sm"
+        >
+          <span className="text-white/80">Quit</span>
+          <span className="ml-auto text-xs text-white/25">⌘ Q</span>
+        </button>
       </div>
-      <button
-        onClick={onSettings}
-        className="w-full flex items-center gap-2 px-3 py-2 hover:bg-gray-800/30 rounded-lg text-left transition-colors duration-200 text-sm"
-      >
-        <span className="text-gray-300">Settings</span>
-        <span className="ml-auto text-xs text-gray-500">CTRL + S</span>
-      </button>
-      <button
-        onClick={onQuit}
-        className="w-full flex items-center gap-2 px-3 py-2 hover:bg-gray-800/30 rounded-lg text-left transition-colors duration-200 text-sm"
-      >
-        <span className="text-gray-300">Quit</span>
-        <span className="ml-auto text-xs text-gray-500">CTRL + Q</span>
-      </button>
     </div>
   );
 }
